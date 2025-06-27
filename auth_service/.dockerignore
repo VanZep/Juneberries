@@ -1,0 +1,7 @@
+.venv
+venv
+.git
+.idea
+.vscode
+.env
+poetry.toml
