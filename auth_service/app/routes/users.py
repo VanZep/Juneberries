@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 
-from .schemas import CreateUser
-from .crud import create_user
+from schemas.users import CreateUser
+from crud.users import create_user
 
 router = APIRouter(prefix='/auth', tags=['Users'])
 

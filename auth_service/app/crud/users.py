@@ -1,4 +1,4 @@
-from .schemas import CreateUser
+from schemas.users import CreateUser
 
 def create_user(user: CreateUser) -> dict:
     """Создание пользователя."""
