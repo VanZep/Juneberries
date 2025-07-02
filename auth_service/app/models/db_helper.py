@@ -29,9 +29,11 @@ class DatabaseHelper():
         )
 
     async def dispose(self):
+        """Остановка движка."""
         await self.engine.dispose()
 
     async def session_getter(self):
+        """Получение сессии."""
         async with self.session_factory() as session:
             yield session
 
