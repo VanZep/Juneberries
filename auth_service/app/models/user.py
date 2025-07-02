@@ -29,7 +29,7 @@ class User(Base):
         String(50)
     )
     role_id: Mapped[int] = mapped_column(
-        ForeignKey('role.id', ondelete='SET NULL')
+        ForeignKey('role.id')
     )
     created_at: Mapped[datetime.datetime] = mapped_column(
         DateTime(timezone=True),
