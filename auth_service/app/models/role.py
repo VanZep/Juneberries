@@ -19,7 +19,7 @@ class Role(Base):
         primary_key=True
     )
     name: Mapped[Role_name]
-    description: Mapped[str]
+    description: Mapped[str | None]
 
     users: Mapped[List['User']] = relationship(
         back_populates='role'
