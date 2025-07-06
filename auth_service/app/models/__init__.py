@@ -1,4 +1,5 @@
-__all__ = ('Base', 'User')
+__all__ = ('Base', 'User', 'Role')
 
-from base import Base
-from user import User
+from .base import Base
+from .user import User
+from .role import Role
