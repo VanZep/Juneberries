@@ -2,7 +2,7 @@ import datetime
 import uuid
 from typing import TYPE_CHECKING
 
-from sqlalchemy import UUID, String, ForeignKey, DateTime, func
+from sqlalchemy import UUID, ForeignKey, DateTime, func
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from models import Base
@@ -23,15 +23,10 @@ class User(Base):
         unique=True
     )
     email: Mapped[str] = mapped_column(
-        String(254),
         unique=True
     )
-    password_hash: Mapped[str] = mapped_column(
-        String(256)
-    )
-    name: Mapped[str] = mapped_column(
-        String(50)
-    )
+    password_hash: Mapped[str]
+    name: Mapped[str]
     role_id: Mapped[int] = mapped_column(
         ForeignKey('role.id')
     )
