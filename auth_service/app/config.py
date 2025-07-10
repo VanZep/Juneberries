@@ -31,14 +31,14 @@ class Settings(BaseSettings):
     """Настройки проекта."""
 
     model_config = SettingsConfigDict(
-        env_file='.env',
+        env_file='../.env',
         case_sensitive=False,
         env_nested_delimiter='__',
         env_prefix='APP_CONFIG__'
     )
     run: RunConfig = RunConfig()
     api: ApiPrefix = ApiPrefix()
-    # db: DatabaseConfig
+    db: DatabaseConfig
 
 
 settings = Settings()
