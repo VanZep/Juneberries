@@ -2,14 +2,15 @@ services:
 
   db:
     image: postgres:17.5
-    env_file: auth_service/dev.env
+    env_file: ./auth_service/.env
     volumes:
       - pg_data:/var/lib/postgresql/data
 
-  app:
-    build: auth_service/.
+  auth_service:
+    build: ./auth_service/
+    env_file: ./auth_service/.env
     volumes:
-      - /app:/auth_service/app
+      - ./auth_service/app:/app
 
 volumes:
   pg_data:
