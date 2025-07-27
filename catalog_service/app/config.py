@@ -11,6 +11,23 @@ class RunConfig(BaseModel):
     reload: bool = False
 
 
+class AppConfig(BaseModel):
+    """Настройки приложения."""
+
+    title: str = 'Catalog Service'
+    summary: str = 'Товары и категории'
+    description: str = '''
+        - CRUD для товаров и категорий
+        - Кеширование списка категорий в Redis
+        - При изменении товара отправляется событие PRODUCT_UPDATED в Kafka
+        - Цены товаров в каталоге указаны в валюте
+        Стек: FastAPI + SQLAlchemy + Alembic + PostgreSQL + Redis + Kafka
+        БД: PostgreSQL Redis: кеширование списка категорий 
+        (categories_list, TTL = 1 час)
+        Kafka: при обновлении товара → PRODUCT_UPDATED')
+        '''
+
+
 class ApiPrefix(BaseModel):
     """API префикс."""
 
@@ -60,6 +77,7 @@ class Settings(BaseSettings):
         env_nested_delimiter='__',
         env_prefix='CATALOG_SERVICE__'
     )
+    app: AppConfig = AppConfig()
     run: RunConfig = RunConfig()
     api: ApiPrefix = ApiPrefix()
     db: DatabaseConfig

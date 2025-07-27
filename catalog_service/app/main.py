@@ -20,18 +20,9 @@ async def lifespan(app: FastAPI):
 app = FastAPI(
     lifespan=lifespan,
     default_response_class=ORJSONResponse,
-    title='Catalog Service',
-    summary='Товары и категории',
-    description='''
-    - CRUD для товаров и категорий
-    - Кеширование списка категорий в Redis
-    - При изменении товара отправляется событие PRODUCT_UPDATED в Kafka
-    - Цены товаров в каталоге указаны в валюте
-    Стек: FastAPI + SQLAlchemy + Alembic + PostgreSQL + Redis + Kafka
-    БД: PostgreSQL Redis: кеширование списка категорий 
-    (categories_list, TTL = 1 час)
-    Kafka: при обновлении товара → PRODUCT_UPDATED')
-    '''
+    title=settings.app.title,
+    summary=settings.app.summary,
+    description=settings.app.description
 )
 
 if __name__ == '__main__':
