@@ -20,11 +20,27 @@ class ApiPrefix(BaseModel):
 class DatabaseConfig(BaseModel):
     """Подключение PostgreSQL."""
 
-    url: PostgresDsn
+    user: str
+    password: str
+    host: str
+    port: int
+    name: str
+
     echo: bool = False
     echo_pool: bool = False
     pool_size: int = 50
     max_overflow: int = 10
+
+    @property
+    def url(self) -> PostgresDsn:
+        return PostgresDsn.build(
+            scheme='postgresql+asyncpg',
+            username=self.user,
+            password=self.password,
+            host=self.host,
+            port=self.port,
+            path=self.name
+        )
 
 
 class Settings(BaseSettings):
@@ -34,7 +50,7 @@ class Settings(BaseSettings):
         env_file='../.env',
         case_sensitive=False,
         env_nested_delimiter='__',
-        env_prefix='APP_CONFIG__'
+        env_prefix='CATALOG_SERVICE__'
     )
     run: RunConfig = RunConfig()
     api: ApiPrefix = ApiPrefix()
