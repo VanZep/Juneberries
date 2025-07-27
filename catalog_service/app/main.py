@@ -1,9 +1,23 @@
+from contextlib import asynccontextmanager
+
 import uvicorn
-from  fastapi import FastAPI
+from fastapi import FastAPI
 
 from config import settings
+from models import db_helper
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    """Функция старта и завершения работы приложения."""
+    # startup
+    yield
+    # shutdown
+    await db_helper.dispose()
+
 
 app = FastAPI(
+    lifespan=lifespan,
     title='Catalog Service',
     summary='Товары и категории',
     description='''
