@@ -2,6 +2,7 @@ from contextlib import asynccontextmanager
 
 import uvicorn
 from fastapi import FastAPI
+from fastapi.responses import ORJSONResponse
 
 from config import settings
 from models import db_helper
@@ -18,6 +19,7 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(
     lifespan=lifespan,
+    default_response_class=ORJSONResponse,
     title='Catalog Service',
     summary='Товары и категории',
     description='''
