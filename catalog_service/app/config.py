@@ -3,7 +3,7 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class RunConfig(BaseModel):
-    """Параметры запуска uvicorn."""
+    """Настройки запуска uvicorn."""
 
     app: str = 'main:app'
     host: str = '127.0.0.1'
@@ -29,7 +29,7 @@ class AppConfig(BaseModel):
 
 
 class ApiPrefix(BaseModel):
-    """API префикс."""
+    """Настройки API префиксов."""
 
     prefix: str = '/api'
     v1: str = '/v1'
@@ -38,7 +38,7 @@ class ApiPrefix(BaseModel):
 
 
 class DatabaseConfig(BaseModel):
-    """Подключение PostgreSQL."""
+    """Настройки PostgreSQL."""
 
     user: str
     password: str
@@ -61,6 +61,7 @@ class DatabaseConfig(BaseModel):
 
     @property
     def url(self) -> PostgresDsn:
+        """Формирование URL подключения БД."""
         return PostgresDsn.build(
             scheme='postgresql+asyncpg',
             username=self.user,
