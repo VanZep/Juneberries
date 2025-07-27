@@ -32,7 +32,7 @@ class ApiPrefix(BaseModel):
 
     prefix: str = '/api'
     v1: str = '/v1'
-    users: str = '/users'
+    auth: str = '/auth'
 
 
 class DatabaseConfig(BaseModel):
@@ -71,7 +71,7 @@ class DatabaseConfig(BaseModel):
 
 
 class Settings(BaseSettings):
-    """Настройки проекта."""
+    """Настройки сервиса."""
 
     model_config = SettingsConfigDict(
         env_file='../.env',

@@ -1,9 +1,10 @@
 from fastapi import APIRouter
 
+from config import settings
 from schemas.users import CreateUser
 from crud.users import create_user
 
-router = APIRouter(prefix='/auth', tags=['Users'])
+router = APIRouter(prefix=settings.api.auth, tags=['Users'])
 
 @router.post('/register')
 def register(user: CreateUser):
