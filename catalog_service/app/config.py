@@ -32,6 +32,8 @@ class ApiPrefix(BaseModel):
     """API префикс."""
 
     prefix: str = '/api'
+    v1: str = '/v1'
+    products: str = '/products'
 
 
 class DatabaseConfig(BaseModel):

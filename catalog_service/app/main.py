@@ -6,6 +6,7 @@ from fastapi.responses import ORJSONResponse
 
 from config import settings
 from models import db_helper
+from routes import v1_router
 
 
 @asynccontextmanager
@@ -24,6 +25,7 @@ app = FastAPI(
     summary=settings.app.summary,
     description=settings.app.description
 )
+app.include_router(v1_router)
 
 if __name__ == '__main__':
     uvicorn.run(
