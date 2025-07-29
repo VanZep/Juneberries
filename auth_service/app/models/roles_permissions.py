@@ -3,6 +3,7 @@ from sqlalchemy.orm import Mapped, mapped_column
 
 from models import Base
 
+
 class RolesPermissions(Base):
     """Промежуточная модель для связи роли и разрешения пользователя."""
 

@@ -1,5 +1,5 @@
-import datetime
 import uuid
+from datetime import datetime
 from typing import TYPE_CHECKING
 
 from sqlalchemy import UUID, ForeignKey, DateTime, func
@@ -30,7 +30,7 @@ class User(Base):
     role_id: Mapped[int] = mapped_column(
         ForeignKey('role.id')
     )
-    created_at: Mapped[datetime.datetime] = mapped_column(
+    created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True),
         server_default=func.now()
     )
