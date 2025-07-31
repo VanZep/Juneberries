@@ -1,16 +1,21 @@
 services:
 
-  db:
+  auth_pg:
     image: postgres:17.5
-    env_file: ./auth_service/.env
+    environment:
+      POSTGRES_USER: ${AUTH_SERVICE__DB__USER}
+      POSTGRES_PASSWORD: ${AUTH_SERVICE__DB__PASSWORD}
+      POSTGRES_DB: ${AUTH_SERVICE__DB__NAME}
     volumes:
-      - pg_data:/var/lib/postgresql/data
+      - auth_pg_data:/var/lib/postgresql/data
 
   auth_service:
     build: ./auth_service/
     env_file: ./auth_service/.env
     volumes:
       - ./auth_service/app:/app
+    depends_on:
+      - auth_pg
 
 volumes:
-  pg_data:
+  auth_pg_data:

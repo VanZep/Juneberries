@@ -1,5 +1,8 @@
-__all__ = ('Base', 'User', 'Role', 'Permission', 'RolesPermissions')
+__all__ = (
+    'db_helper', 'Base', 'User', 'Role', 'Permission', 'RolesPermissions'
+)
 
+from .db_helper import db_helper
 from .base import Base
 from .user import User
 from .role import Role

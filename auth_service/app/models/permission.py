@@ -9,7 +9,7 @@ if TYPE_CHECKING:
 
 
 class Permission(Base):
-    """Модель разрешения."""
+    """Модель разрешения пользователя."""
 
     __tablename__ = 'permission'
 
