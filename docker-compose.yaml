@@ -9,6 +9,15 @@ services:
     volumes:
       - auth_pg_data:/var/lib/postgresql/data
 
+  catalog_pg:
+    image: postgres:17.5
+    environment:
+      POSTGRES_USER: ${CATALOG_SERVICE__DB__USER}
+      POSTGRES_PASSWORD: ${CATALOG_SERVICE__DB__PASSWORD}
+      POSTGRES_DB: ${CATALOG_SERVICE__DB__NAME}
+    volumes:
+      - catalog_pg_data:/var/lib/postgresql/data
+
   auth_service:
     build: ./auth_service/
     env_file: ./auth_service/.env
@@ -17,5 +26,14 @@ services:
     depends_on:
       - auth_pg
 
+  catalog_service:
+    build: ./catalog_service/
+    env_file: ./catalog_service/.env
+    volumes:
+      - ./catalog_service/app:/app
+    depends_on:
+      - catalog_pg
+
 volumes:
   auth_pg_data:
+  catalog_pg_data:
