@@ -13,10 +13,10 @@ class RolesPermissions(Base):
         primary_key=True
     )
     role_id: Mapped[int] = mapped_column(
-        ForeignKey('role.id'),
+        ForeignKey('roles.id'),
         primary_key=True
     )
     permission_id: Mapped[int] = mapped_column(
-        ForeignKey('permission.id'),
+        ForeignKey('permissions.id'),
         primary_key=True
     )

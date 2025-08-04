@@ -4,7 +4,7 @@ __all__ = (
 
 from .db_helper import db_helper
 from .base import Base
-from .user import User
-from .role import Role
-from .permission import Permission
+from .users import User
+from .roles import Role
+from .permissions import Permission
 from .roles_permissions import RolesPermissions

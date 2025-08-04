@@ -13,7 +13,7 @@ Role_name = Literal['user', 'manager', 'admin']
 class Role(Base):
     """Модель роли пользователя."""
 
-    __tablename__ = 'role'
+    __tablename__ = 'roles'
 
     id: Mapped[int] = mapped_column(
         primary_key=True

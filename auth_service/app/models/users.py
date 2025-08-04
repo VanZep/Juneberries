@@ -14,7 +14,7 @@ if TYPE_CHECKING:
 class User(Base):
     """Модель пользователя."""
 
-    __tablename__ = 'user'
+    __tablename__ = 'users'
 
     id: Mapped[uuid.UUID] = mapped_column(
         UUID(as_uuid=True),
@@ -28,7 +28,7 @@ class User(Base):
     password_hash: Mapped[str]
     name: Mapped[str]
     role_id: Mapped[int] = mapped_column(
-        ForeignKey('role.id')
+        ForeignKey('roles.id')
     )
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True),
