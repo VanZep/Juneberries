@@ -1,8 +1,8 @@
-"""add product table
+"""add products table
 
-Revision ID: 9c8d33133cb8
-Revises: d37e11eb7ece
-Create Date: 2025-08-04 07:31:44.595269
+Revision ID: 73641dd97677
+Revises: 8a521246703d
+Create Date: 2025-08-04 13:10:58.423154
 
 """
 from typing import Sequence, Union
@@ -12,8 +12,8 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision: str = '9c8d33133cb8'
-down_revision: Union[str, Sequence[str], None] = 'd37e11eb7ece'
+revision: str = '73641dd97677'
+down_revision: Union[str, Sequence[str], None] = '8a521246703d'
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
 
@@ -21,20 +21,20 @@ depends_on: Union[str, Sequence[str], None] = None
 def upgrade() -> None:
     """Upgrade schema."""
     op.create_table(
-        'product',
+        'products',
         sa.Column('id', sa.UUID(), nullable=False),
         sa.Column('name', sa.String(), nullable=False),
         sa.Column('price', sa.Numeric(), nullable=False),
         sa.Column('created_at', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=False),
         sa.Column('category_id', sa.UUID(), nullable=False),
-        sa.ForeignKeyConstraint(['category_id'], ['category.id'], name=op.f('fk_product_category_id_category')),
-        sa.PrimaryKeyConstraint('id', name=op.f('pk_product')),
-        sa.UniqueConstraint('id', name=op.f('uq_product_id'))
+        sa.ForeignKeyConstraint(['category_id'], ['categories.id'], name=op.f('fk_products_category_id_categories')),
+        sa.PrimaryKeyConstraint('id', name=op.f('pk_products')),
+        sa.UniqueConstraint('id', name=op.f('uq_products_id'))
     )
-    op.create_unique_constraint(op.f('uq_category_id'), 'category', ['id'])
+    op.create_unique_constraint(op.f('uq_categories_id'), 'categories', ['id'])
 
 
 def downgrade() -> None:
     """Downgrade schema."""
-    op.drop_constraint(op.f('uq_category_id'), 'category', type_='unique')
-    op.drop_table('product')
+    op.drop_constraint(op.f('uq_categories_id'), 'categories', type_='unique')
+    op.drop_table('products')

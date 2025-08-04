@@ -1,20 +1,21 @@
 import uuid
 from datetime import datetime
+from decimal import Decimal
 from typing import TYPE_CHECKING
 
-from sqlalchemy import UUID, DateTime, func
+from sqlalchemy import UUID, DateTime, func, ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from models import Base
 
 if TYPE_CHECKING:
-    from models import Product
+    from models import Category
 
 
-class Category(Base):
-    """Модель категории."""
+class Product(Base):
+    """Модель товара."""
 
-    __tablename__ = 'category'
+    __tablename__ = 'products'
 
     id: Mapped[uuid.UUID] = mapped_column(
         UUID(as_uuid=True),
@@ -23,11 +24,15 @@ class Category(Base):
         unique=True
     )
     name: Mapped[str]
+    price: Mapped[Decimal]
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True),
         server_default=func.now()
     )
+    category_id: Mapped[uuid.UUID] = mapped_column(
+        ForeignKey('categories.id')
+    )
 
-    products: Mapped[list['Product']] = relationship(
-        back_populates='category'
+    category: Mapped['Category'] = relationship(
+        back_populates='products'
     )
