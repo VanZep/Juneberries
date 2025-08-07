@@ -2,15 +2,6 @@ from pydantic import BaseModel, PostgresDsn
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
-class RunConfig(BaseModel):
-    """Настройки запуска uvicorn."""
-
-    app: str = 'main:app'
-    host: str = '127.0.0.1'
-    port: int = 8000
-    reload: bool = False
-
-
 class AppConfig(BaseModel):
     """Настройки приложения."""
 
@@ -25,6 +16,15 @@ class AppConfig(BaseModel):
         Стек: FastAPI + JWT + Redis (для refresh токенов)
         БД: PostgreSQL
         '''
+
+
+class RunConfig(BaseModel):
+    """Настройки запуска uvicorn."""
+
+    app: str = 'main:app'
+    host: str = '127.0.0.1'
+    port: int = 8000
+    reload: bool = False
 
 
 class ApiPrefix(BaseModel):
