@@ -18,6 +18,15 @@ services:
     volumes:
       - catalog_pg_data:/var/lib/postgresql/data
 
+  orders_pg:
+    image: postgres:17.5
+    environment:
+      POSTGRES_USER: ${ORDERS_SERVICE__DB__USER}
+      POSTGRES_PASSWORD: ${ORDERS_SERVICE__DB__PASSWORD}
+      POSTGRES_DB: ${ORDERS_SERVICE__DB__NAME}
+    volumes:
+      - orders_pg_data:/var/lib/postgresql/data
+
   auth_service:
     build: ./auth_service/
     env_file: ./auth_service/.env
@@ -34,6 +43,15 @@ services:
     depends_on:
       - catalog_pg
 
+  orders_service:
+    build: ./orders_service/
+    env_file: ./orders_service/.env
+    volumes:
+      - ./orders_service/app:/app
+    depends_on:
+      - orders_pg
+
 volumes:
   auth_pg_data:
   catalog_pg_data:
+  orders_pg_data:
