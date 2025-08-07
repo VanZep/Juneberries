@@ -1,11 +1,15 @@
 import uuid
 from decimal import Decimal
 from datetime import datetime
+from typing import TYPE_CHECKING
 
-from sqlalchemy import UUID, ForeignKey, DateTime, func
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy import UUID, DateTime, func
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from .base import Base
+
+if TYPE_CHECKING:
+    from .order_items import OrderItem
 
 
 class Order(Base):
@@ -19,9 +23,7 @@ class Order(Base):
         default=uuid.uuid4,
         unique=True
     )
-    user_id: Mapped[uuid.UUID] = mapped_column(
-        ForeignKey('users.id')
-    )
+    user_id: Mapped[uuid.UUID]
     total_price: Mapped[Decimal]
     cart_price: Mapped[Decimal]
     delivery_price: Mapped[Decimal]
@@ -29,4 +31,9 @@ class Order(Base):
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True),
         server_default=func.now()
+    )
+
+    items: Mapped[list['OrderItem']] = relationship(
+        back_populates='order',
+        cascade='all, delete'
     )
