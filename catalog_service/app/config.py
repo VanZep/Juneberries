@@ -2,15 +2,6 @@ from pydantic import BaseModel, PostgresDsn
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
-class RunConfig(BaseModel):
-    """Настройки запуска uvicorn."""
-
-    app: str = 'main:app'
-    host: str = '127.0.0.1'
-    port: int = 8000
-    reload: bool = False
-
-
 class AppConfig(BaseModel):
     """Настройки приложения."""
 
@@ -26,6 +17,15 @@ class AppConfig(BaseModel):
         (categories_list, TTL = 1 час)
         Kafka: при обновлении товара → PRODUCT_UPDATED')
         '''
+
+
+class RunConfig(BaseModel):
+    """Настройки запуска uvicorn."""
+
+    app: str = 'main:app'
+    host: str = '127.0.0.1'
+    port: int = 8000
+    reload: bool = False
 
 
 class ApiPrefix(BaseModel):
