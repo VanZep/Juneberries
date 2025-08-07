@@ -1,6 +1,6 @@
 import uuid
 from datetime import datetime
-from typing import TYPE_CHECKING
+from typing import List, TYPE_CHECKING
 
 from sqlalchemy import UUID, DateTime, func
 from sqlalchemy.orm import Mapped, mapped_column, relationship
@@ -28,6 +28,6 @@ class Category(Base):
         server_default=func.now()
     )
 
-    products: Mapped[list['Product']] = relationship(
+    products: Mapped[List['Product']] = relationship(
         back_populates='category'
     )

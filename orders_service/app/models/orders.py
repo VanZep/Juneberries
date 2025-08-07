@@ -1,7 +1,7 @@
 import uuid
 from decimal import Decimal
 from datetime import datetime
-from typing import TYPE_CHECKING
+from typing import List, TYPE_CHECKING
 
 from sqlalchemy import UUID, DateTime, func
 from sqlalchemy.orm import Mapped, mapped_column, relationship
@@ -33,7 +33,7 @@ class Order(Base):
         server_default=func.now()
     )
 
-    items: Mapped[list['OrderItem']] = relationship(
+    items: Mapped[List['OrderItem']] = relationship(
         back_populates='order',
         cascade='all, delete'
     )
