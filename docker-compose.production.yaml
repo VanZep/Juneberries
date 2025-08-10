@@ -1,6 +1,6 @@
 services:
 
-  auth_pg:
+  auth_db:
     image: postgres:17.5
     environment:
       POSTGRES_USER: ${AUTH_SERVICE__DB__USER}
@@ -9,7 +9,7 @@ services:
     volumes:
       - auth_pg_data:/var/lib/postgresql/data
 
-  catalog_pg:
+  catalog_db:
     image: postgres:17.5
     environment:
       POSTGRES_USER: ${CATALOG_SERVICE__DB__USER}
@@ -18,7 +18,7 @@ services:
     volumes:
       - catalog_pg_data:/var/lib/postgresql/data
 
-  orders_pg:
+  orders_db:
     image: postgres:17.5
     environment:
       POSTGRES_USER: ${ORDERS_SERVICE__DB__USER}
@@ -31,19 +31,19 @@ services:
     image: vanzep/auth_service
     env_file: ./auth_service/.env
     depends_on:
-      - auth_pg
+      - auth_db
 
   catalog_service:
     image: vanzep/catalog_service
     env_file: ./catalog_service/.env
     depends_on:
-      - catalog_pg
+      - catalog_db
 
   orders_service:
     image: vanzep/orders_service
     env_file: ./orders_service/.env
     depends_on:
-      - orders_pg
+      - orders_db
 
 volumes:
   auth_pg_data:
