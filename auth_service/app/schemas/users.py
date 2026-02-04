@@ -21,3 +21,8 @@ class UpdateUser(BaseModel):
 class DeleteUser(BaseModel):
     """Схема удаления пользователя."""
     pass
+
+
+class UserSchema(BaseModel):
+    """Схема пользователя."""
+    pass
