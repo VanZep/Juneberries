@@ -1,16 +1,23 @@
-from fastapi import APIRouter
+from typing import Annotated
+
+from fastapi import APIRouter, status, Depends
+from sqlalchemy.ext.asyncio import AsyncSession
 
 from config import settings
+from models import db_helper
 from schemas.users import CreateUser
 from crud.users import create_user
 
-router = APIRouter(prefix=settings.api.auth, tags=['Users'])
+router = APIRouter(prefix=settings.api.auth, tags=['Auth'])
 
 
-@router.post('/register')
-def register(user: CreateUser):
+@router.post('/register', status_code=status.HTTP_201_CREATED)
+async def register(
+        session: Annotated[AsyncSession, Depends(db_helper.session_getter())],
+        user: CreateUser
+):
     """Регистрация пользователя."""
-    return create_user(user)
+    return create_user(session, user)
 
 
 @router.post('/login')
